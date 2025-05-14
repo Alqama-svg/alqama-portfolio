@@ -380,25 +380,44 @@ nav .container {
     text-decoration: underline;
 }
 
-/* Enhanced Success Message */
+/* Success Message */
 .success-message-container {
     display: none;
+    max-width: 500px;
+    margin: var(--space-xl) auto 0;
     animation: fadeIn 0.5s ease-out;
 }
 
 .success-message {
-    text-align: center;
+    background: var(--success-bg);
+    color: var(--success);
     padding: var(--space-xl);
+    border-radius: var(--radius-md);
+    text-align: center;
+    border-left: 4px solid var(--success);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.success-message .btn-outline {
-    margin-top: var(--space-md);
+.success-message i {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    display: block;
+    color: var(--success);
 }
 
-/* Spinner animation */
-.fa-spinner.fa-spin {
-    margin-right: var(--space-sm);
-    animation: spin 1s linear infinite;
+.success-message h3 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.5rem;
+}
+
+.success-message p {
+    color: var(--success);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes spin {
@@ -406,11 +425,9 @@ nav .container {
     100% { transform: rotate(360deg); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .success-message {
-        padding: var(--space-lg);
-    }
+.fa-spinner.fa-spin {
+    animation: spin 1s linear infinite;
+    margin-right: var(--space-sm);
 }
 
 /* Footer */
@@ -446,14 +463,14 @@ footer {
     .skills-container {
         flex-direction: column;
     }
-    
-    .container {
-        width: 95%;
-        padding: 0 var(--space-sm);
-    }
 
     .contact-form,
     .success-message-container {
         padding: var(--space-lg);
+    }
+    
+    .container {
+        width: 95%;
+        padding: 0 var(--space-sm);
     }
 }
