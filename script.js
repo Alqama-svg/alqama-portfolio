@@ -3,54 +3,73 @@ if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalHTML = contactForm.innerHTML; // Backup for reset
+    const originalHTML = contactForm.innerHTML;
+    const statusDiv = document.getElementById('formStatus');
 
-    // reCAPTCHA validation
+    // 1. reCAPTCHA Validation
     const recaptchaResponse = grecaptcha.getResponse();
-    if (!recaptchaResponse) {
-      alert("Please complete the reCAPTCHA!");
-      return; // Stop if reCAPTCHA isn't completed
+    if (recaptchaResponse.length === 0) {
+      if (statusDiv) {
+        statusDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>Please complete the reCAPTCHA verification!</p>
+          </div>
+        `;
+      } else {
+        alert("Please complete the reCAPTCHA!");
+      }
+      document.querySelector('.g-recaptcha')?.scrollIntoView({ behavior: 'smooth' });
+      return;
     }
 
+    // 2. Prepare for submission
     submitButton.disabled = true;
-    submitButton.textContent = 'Sending...';
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
     try {
+      // 3. Create FormData and append reCAPTCHA
       const formData = new FormData(contactForm);
-      formData.append('g-recaptcha-response', recaptchaResponse); // Add reCAPTCHA token
+      formData.append('g-recaptcha-response', recaptchaResponse);
 
-      
+      // 4. Send data
       const response = await fetch(contactForm.action, {
         method: 'POST',
-        body: new FormData(contactForm),
+        body: formData,
         headers: { 'Accept': 'application/json' }
       });
 
-      if (!response.ok) throw new Error('Server error');
+      if (!response.ok) throw new Error(await response.text());
 
-      // Success
-      contactForm.innerHTML = `
-        <div class="success-message">
-          <i class="fas fa-check-circle"></i>
-          <h3>Thanks for your message!</h3>
-          <p>I'll get back to you soon.</p>
-        </div>
-      `;
+      // 5. Success handling
+      if (statusDiv) {
+        statusDiv.innerHTML = `
+          <div class="success-message">
+            <i class="fas fa-check-circle"></i>
+            <h3>Thanks for your message!</h3>
+            <p>I'll get back to you soon.</p>
+          </div>
+        `;
+      }
+      contactForm.reset();
+      grecaptcha.reset(); // Reset reCAPTCHA
     } catch (error) {
-      // Error: Restore form + show inline message
-      contactForm.innerHTML = originalHTML;
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'error-message';
-      errorDiv.innerHTML = `
-        <i class="fas fa-exclamation-circle"></i>
-        <p>Failed to send. Please email me directly at 
-          <a href="mailto:alqama043@gmail.com">alqama043@gmail.com</a>
-        </p>
-      `;
-      contactForm.prepend(errorDiv);
+      // 6. Error handling
       console.error('Form error:', error);
+      if (statusDiv) {
+        statusDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>Failed to send. Please try again or email me directly at 
+              <a href="mailto:alqama043@gmail.com">alqama043@gmail.com</a>
+            </p>
+          </div>
+        `;
+      }
     } finally {
+      // 7. Reset UI
       submitButton.disabled = false;
+      submitButton.innerHTML = 'Send Message';
     }
   });
 }
