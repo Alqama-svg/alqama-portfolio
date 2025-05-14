@@ -39,37 +39,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 const response = await fetch(contactForm.action, {
                     method: 'POST',
                     body: new FormData(contactForm),
-                    headers: { 'Accept': 'application/json' }
+                    headers: { 'Accept': 'application/json'
+                    }
                 });
 
                 if (response.ok) {
-                    // Hide form and show success message
-                    contactForm.style.display = 'none';
-                    if (successMessage) {
-                        successMessage.style.display = 'block';
-                        successMessage.scrollIntoView({ behavior: 'smooth' });
-                    }
-                    contactForm.reset();
+            // Show success message and hide form
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+            form.reset();
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
                 } else {
-                    throw new Error('Form submission failed');
+                    throw new Error('Submission failed');
                 }
             } catch (error) {
-                console.error('Form error:', error);
-                if (statusDiv) {
-                    statusDiv.innerHTML = `
-                        <div class="error-message">
-                            <i class="fas fa-exclamation-circle"></i>
-                            <p>Failed to send. Please try again or email me directly at 
-                                <a href="mailto:alqama043@gmail.com">alqama043@gmail.com</a>
-                            </p>
-                        </div>
-                    `;
-                }
-            } finally {
-                // Reset button state
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Send Message';
-            }
-        });
-    }
-});
+        // Show error message
+            const errorElement = document.createElement('div');
+            errorElement.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Failed to send. Please email me directly at <a href="mailto:alqama043@gmail.com">alqama043@gmail.com</a></p>
+                </div>
+            `;
+            form.appendChild(errorElement);
+        } finally {
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+        }
+    });
