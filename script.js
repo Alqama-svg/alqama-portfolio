@@ -5,10 +5,21 @@ if (contactForm) {
     const submitButton = contactForm.querySelector('button[type="submit"]');
     const originalHTML = contactForm.innerHTML; // Backup for reset
 
+    // reCAPTCHA validation
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      alert("Please complete the reCAPTCHA!");
+      return; // Stop if reCAPTCHA isn't completed
+    }
+
     submitButton.disabled = true;
     submitButton.textContent = 'Sending...';
 
     try {
+      const formData = new FormData(contactForm);
+      formData.append('g-recaptcha-response', recaptchaResponse); // Add reCAPTCHA token
+
+      
       const response = await fetch(contactForm.action, {
         method: 'POST',
         body: new FormData(contactForm),
