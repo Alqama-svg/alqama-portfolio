@@ -1,63 +1,45 @@
-// Mobile Nav Toggle (Hamburger Menu)
-document.querySelector('.hamburger').addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('active');
-});
-
-// Smooth Scrolling for Navigation Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-        
-        // Close mobile menu after clicking a link (optional)
-        document.querySelector('.nav-links').classList.remove('active');
-    });
-});
-
-// Dark Mode Toggle
-const darkModeToggle = document.getElementById('darkModeToggle');
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    darkModeToggle.innerHTML = document.body.classList.contains('dark-mode') 
-        ? '<i class="fas fa-sun"></i>' 
-        : '<i class="fas fa-moon"></i>';
-});
-
-// ===== IMPROVED FORM SUBMISSION ===== //
-document.querySelector('.contact-form').addEventListener('submit', async (e) => {
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const submitButton = form.querySelector('button[type="submit"]');
-    
-    // Disable button to prevent double-submission
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalHTML = contactForm.innerHTML; // Backup for reset
+
     submitButton.disabled = true;
     submitButton.textContent = 'Sending...';
 
     try {
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form), // Uses FormData instead of JSON
-            headers: { 'Accept': 'application/json' }
-        });
-        
-        if (response.ok) {
-            // Success: Replace form with a message
-            form.innerHTML = `
-                <div class="success-message">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Thanks for your message!</h3>
-                    <p>I'll get back to you soon.</p>
-                </div>
-            `;
-        } else {
-            throw new Error('Server error');
-        }
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!response.ok) throw new Error('Server error');
+
+      // Success
+      contactForm.innerHTML = `
+        <div class="success-message">
+          <i class="fas fa-check-circle"></i>
+          <h3>Thanks for your message!</h3>
+          <p>I'll get back to you soon.</p>
+        </div>
+      `;
     } catch (error) {
-        alert('Error: Message not sent. Please email me directly at alqama043@gmail.com');
-        console.error(error);
+      // Error: Restore form + show inline message
+      contactForm.innerHTML = originalHTML;
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <p>Failed to send. Please email me directly at 
+          <a href="mailto:alqama043@gmail.com">alqama043@gmail.com</a>
+        </p>
+      `;
+      contactForm.prepend(errorDiv);
+      console.error('Form error:', error);
     } finally {
-        submitButton.disabled = false;
+      submitButton.disabled = false;
     }
-});
+  });
+}
