@@ -351,13 +351,18 @@ section {
 }
 
 .error-message {
-    color: #ef4444;
-    background: #fef2f2;
-    padding: 1rem;
-    border-radius: 0.5rem;
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 15px;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
+}
+
+.error-message i {
+    font-size: 1.2em;
 }
 
 /* Footer */
