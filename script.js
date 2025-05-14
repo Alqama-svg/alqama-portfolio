@@ -27,17 +27,19 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
                 </div>
             `;
             form.reset();
+            
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
         } else {
-            // Get Formspree's error message if available
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Submission failed');
+            throw new Error('Server error');
         }
     } catch (error) {
-        console.error('Form error:', error);
         statusDiv.innerHTML = `
             <div class="error-message">
                 <i class="fas fa-exclamation-circle"></i>
-                ${error.message || 'Failed to send. Please try again later.'}
+                Failed to send. Please try again or email me at
+                <a href="mailto:alqama043@gmail.com">alqama043@gmail.com</a>
             </div>
         `;
     } finally {
