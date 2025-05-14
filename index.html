@@ -196,12 +196,16 @@
                         <textarea id="message" name="message" placeholder="What would you like to say?" required></textarea>
                     </div>
                     <button type="submit" class="btn">Send Message</button>
+                    <div id="formStatus"></div> <!-- For error messages -->
                 </form>
-                <div id="successMessage" class="success-message-container" style="display: none;">
+                <div id="successMessage" class="success-message-container">
                     <div class="success-message">
                         <i class="fas fa-check-circle"></i>
                         <h3>Thank You!</h3>
-                        <p>your message has been sent successfully. will get back to you soon.</p>
+                        <p>your message has been sent successfully.</p>
+                        <button id="backToForm" class="btn-outline" style="margin-top: var(--space-md);">
+                            <i class="fas fa-arrow-left"></i> Send another message
+                        </button>
                     </div>
                 </div>
             </div>
