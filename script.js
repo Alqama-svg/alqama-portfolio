@@ -23,7 +23,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
             statusDiv.innerHTML = `
                 <div class="success-message">
                     <i class="fas fa-check-circle"></i>
-                    Message sent successfully! will get back to you soon.
+                    Message sent successfully
                 </div>
             `;
             form.reset();
