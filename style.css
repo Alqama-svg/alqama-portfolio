@@ -344,6 +344,42 @@ section {
     }
 }
 
+/* Status Messages */
+#formStatus {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+}
+
+.success-message {
+    color: #10b981;
+    background: #ecfdf5;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message {
+    color: #ef4444;
+    background: #fef2f2;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Loading spinner */
+.fa-spinner {
+    margin-right: 0.5rem;
+}
+
 /* Footer */
 footer {
     background: var(--dark);
