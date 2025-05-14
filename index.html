@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- reCAPTCHA API -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <head>
+    <!-- reCAPTCHA API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alqama | Data Scientist</title>
@@ -184,7 +184,7 @@
         <div class="container">
             <h2 class="section-title">I would love to hear from you. let's connect</h2>
             <div class="contact-content">
-                <form id="contactForm" class="contact-form" action="https://formspree.io/f/mjkwpqnb" method="POST">
+                <form id="contactForm" action="https://formspree.io/f/mjkwpqnb" method="POST">
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -197,12 +197,16 @@
                         <label for="message">Your Message</label>
                         <textarea id="message" name="message" placeholder="What would you like to say?" required></textarea>
                     </div>
-                    <!-- reCAPTCHA Widget - PLACE IT HERE -->
-                    <div class="g-recaptcha" data-sitekey="6Ld4XzkrAAAAAOIRFs_MMBzAqspK00IkNH1u1LqV"></div>
-                    <!-- Submit button -->
-                    <button type="submit" id="submitBtn" class="btn">Send Message</button>
+                    <div class="g-recaptcha" 
+                         data-sitekey="6Ld9X_UpAAAAAJk2xRZJvH7Qe5XyQ5Q5Z5X5Z5X5" 
+                         data-callback="onRecaptchaSuccess"></div>
+                    <button type="submit" id="submitBtn" disabled>Send Message</button>
                 </form>
-                <div id="formStatus"></div> <!-- Status messages will appear here -->
+                <script>
+                function onRecaptchaSuccess() {
+                  document.getElementById("submitBtn").disabled = false;
+                }
+                </script>
             </div>
         </div>
     </section>
