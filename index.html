@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- reCAPTCHA API -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -195,6 +197,9 @@
                         <label for="message">Your Message</label>
                         <textarea id="message" name="message" placeholder="What would you like to say?" required></textarea>
                     </div>
+                    <!-- reCAPTCHA Widget - PLACE IT HERE -->
+                    <div class="g-recaptcha" data-sitekey="6Ld4XzkrAAAAAOIRFs_MMBzAqspK00IkNH1u1LqV"></div>
+                    <!-- Submit button -->
                     <button type="submit" id="submitBtn" class="btn">Send Message</button>
                 </form>
                 <div id="formStatus"></div> <!-- Status messages will appear here -->
