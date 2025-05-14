@@ -341,28 +341,27 @@ nav .container {
     resize: vertical;
 }
 
-/* reCAPTCHA */
-.g-recaptcha {
-    margin: var(--space-md) 0;
-    transform: scale(0.95);
-    transform-origin: left;
+/* Submit Button */
+.contact-form button[type="submit"] {
+    width: 100%;
+    padding: var(--space-sm);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.contact-form button[type="submit"]:hover {
+    background: var(--primary-light);
 }
 
 /* Form Status Messages */
 #formStatus {
     margin-top: var(--space-lg);
     font-size: 1rem;
-}
-
-.success-message {
-    color: var(--success);
-    background: var(--success-bg);
-    padding: var(--space-md);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    border-left: 3px solid var(--success);
 }
 
 .error-message {
@@ -381,32 +380,43 @@ nav .container {
     text-decoration: underline;
 }
 
-/* Loading Spinner */
-.fa-spinner {
-    margin-right: var(--space-sm);
-    animation: spin 1s linear infinite;
+/* Success Message Styles */
+.success-message-container {
+    display: none;
+    max-width: 500px;
+    margin: var(--space-xl) auto 0;
+    animation: fadeIn 0.5s ease-out;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.success-message {
+    background: var(--success-bg);
+    color: var(--success);
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
+    text-align: center;
+    border-left: 4px solid var(--success);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Submit Button */
-.contact-form button[type="submit"] {
-    width: 100%;
-    padding: var(--space-sm);
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s;
+.success-message i {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    display: block;
+    color: var(--success);
 }
 
-.contact-form button[type="submit"]:hover {
-    background: var(--primary-light);
+.success-message h3 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.5rem;
+}
+
+.success-message p {
+    color: var(--success);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Footer */
@@ -442,13 +452,14 @@ footer {
     .skills-container {
         flex-direction: column;
     }
-
-    .contact-links {
-        flex-direction: column;
-    }
     
     .container {
         width: 95%;
         padding: 0 var(--space-sm);
+    }
+
+    .contact-form,
+    .success-message-container {
+        padding: var(--space-lg);
     }
 }
