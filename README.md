@@ -38,6 +38,6 @@ The Portfolio is a meticulously crafted, responsive showcase of expertise in Dat
 
 Feel free to fork, star, or contribute! 🚀
 
-## Connect with me:
+## 8. Connect with me:
 [GitHub](https://github.com/Alqama-svg) | [LinkedIn](https://www.linkedin.com/in/Alqama-pvt) | 
 [Email](mailto:alqama043@gmail.com)
