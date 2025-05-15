@@ -158,17 +158,6 @@ nav .container {
     color: var(--primary);
 }
 
-.hero-social a .devicon-leetcode-plain {
-    font-size: 1.4em; /* Slightly larger to match other icons */
-    vertical-align: middle;
-    color: var(--dark);
-    transition: color 0.3s;
-}
-
-.hero-social a:hover .devicon-leetcode-plain {
-    color: var(--primary);
-}
-
 /* Sections */
 section {
     padding: 5rem 0;
